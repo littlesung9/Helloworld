@@ -8,26 +8,32 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SHTPController {
 
-	private static String lastestMessage = "Hello World";
-
+	private static ResponseMessage res = new ResponseMessage();
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = "/hello")
-	public ResponseMessage helloGet(){
+	@GetMapping(value = "/graph/shortestPath")
+	public ResponseMessage getShortestPath(){
 		ResponseMessage hm = new ResponseMessage();
 		hm.setMessage(lastestMessage);
 		hm.setStatus("OK");
 		return hm;
 	}
 
-	@PostMapping(value="/set-hello-message")
-	public HttpStatus setResponseMessage(@RequestParam(value="message") String message){
-		lastestMessage = message;
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/graph/allShortestPath")
+	public ResponseMessage getAllShortestPath(){
+		ResponseMessage hm = new ResponseMessage();
+		hm.setMessage(lastestMessage);
+		hm.setStatus("OK");
+		return hm;
+	}
+
+
+
+	@PostMapping(value="/graph")
+	public HttpStatus setResponseMessage(@RequestBody ResponseMessage message){
+		lastestMessage = message.getMessage();
 		return HttpStatus.OK;
 	}
 
-	@GetMapping(value = "short")
-	public String ShortestPath(){
-		ShortestPath a= new ShortestPath();
-		return "Just a sample";
-	}
+
 }
